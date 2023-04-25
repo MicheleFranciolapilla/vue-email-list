@@ -14,10 +14,7 @@ createApp(
     {
         return  {
                     boolean_API:    "https://flynn.boolean.careers/exercises/api/random/mail",
-                    max_email_nr:   10,
-                    repeated:       0,
-                    counter:        0,
-                    emails_array:   []
+                    mails_array:    []
                 }
     },
     created()
@@ -30,18 +27,18 @@ createApp(
     {
         get_data()
         {
-            axios.get(boolean_API).then( result => {return result.data.response});
-        },
-
-        check_repeated(item)
-        {
-            let is_repeated = false;
-            if (this.emails_array.includes(item))
+            let list = document.getElementById("emails_list");
+            for (let i = 0; i < 10; i++)
             {
-                this.repeated++;
-                is_repeated = true;
+                axios.get(this.boolean_API).then( result =>
+                    {
+                        this.mails_array.push(result.data.response);
+                        list.innerHTML += `<li> - ${this.mails_array[i]}</li>`;
+                        console.log(i + 1, this.mails_array[i]);
+                    });
             }
-            return is_repeated;
+            // this.mails_array = local_array;
+            // console.log(this.mails_array);
         }
     }
 }).mount('#vue_app')

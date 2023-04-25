@@ -13,6 +13,8 @@
     <div id="vue_app">
         <h1 class="text-center text-primary">Email address list by Boolean API</h1>
         <h2>Generazione e stampa di 10 indirizzi email ricavati da API Boolean <span class="fs-6 text-info">({{boolean_API}})</span></h2>
+        <button class="btn btn-success btn-outline-info ms-3 mt-2" @click="get_data()">Genera lista delle email</button>
+        <ol id="emails_list" class="mt-3 mb-2"></ol>
     </div>
 
     <!-- Axios CDN -->
