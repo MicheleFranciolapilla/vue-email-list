@@ -13,8 +13,47 @@
     <div id="vue_app">
         <h1 class="text-center text-primary">Email address list by Boolean API</h1>
         <h2>Generazione e stampa di 10 indirizzi email ricavati da API Boolean <span class="fs-6 text-info">({{boolean_API}})</span></h2>
-        <button class="btn btn-success btn-outline-info ms-3 mt-2" @click="async_get_data()">Genera lista delle email</button>
-        <ol id="emails_list" class="mt-3 mb-2"></ol>
+        <p v-if="!done" class="text-warning ps-2 my-3">
+            Il programma è stato impostato nel seguente modo: <br>
+            - al click sul pulsante avrà luogo il <mark>"one-time-output"</mark>, in cui la lista delle mail ricevute dalla API verrà visualizzata solo quando tutti i dati saranno disponibili <span class="text-primary">AWAIT in funzione ASYNC</span>; <br>
+            - al termine di questa prima fase ci saranno 3 secondi di attesa; <br>
+            - allo scadere dei 3 secondi di attesa, il programma effettuerà una nuova richiesta alla API e produrrà un <mark>"real-time-output"</mark> in cui ciascun dato verrà visualizzato appena disponibile.
+        </p>
+        <hr>
+        <div class="row justify-content-between mt-3 mx-auto p-0">
+            <div class="col-4 ms-2">
+                <h5 class="bg-info text-center border border-4 rounded-3 py-2">One-Time-Output</h5>
+                <table class="table table-striped border border-3 rounded-2">
+                    <thead v-if="done">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="one_time_list">
+
+                    </tbody>
+                </table>
+            </div>
+            <div v-if="!done" class="col-2 d-flex justify-content-center">
+                <button class="btn btn-success btn-outline-info" @click="data_output()">Genera lista delle email</button>
+            </div>
+            <div class="col-4 me-2">
+                <h5 class="bg-info text-center border border-4 rounded-3 py-2">Real-Time-Output</h5>
+                <table class="table table-striped border border-3 rounded-2">
+                    <thead v-if="done">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="real_time_list">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 
     <!-- Axios CDN -->
